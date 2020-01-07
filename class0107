@@ -1,0 +1,86 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int sumnum(int x, int y);	//prototype
+int sumofNum(int a, int b); //prototype
+
+
+void main() {
+	int menu;
+	int first;
+	int second;
+	int ax;
+	int ay;
+	int status = 1;
+	
+	while (status) {
+		printf("choose menu\n");
+		printf("select 1 to add Num\n");
+		printf("select 2 to caluculate sumofNum\n");
+		scanf("%d", &menu);
+		switch (menu) {
+
+			//int sum = 0;
+			//for (int i = 1; i < 101; i += 1) {
+			//	printf("%d\n", i);
+			//	sum = sum + i;	
+			//}
+			//printf("%d\n", sum);
+
+			//int x = 0;
+			//while (x < 11) {
+			//	printf("%d\n", x);
+			//	x += 1;
+			//	//if (x == 11) continue;
+			//	
+			//}
+
+			//do {
+			//	x += 1;
+			//	if (x == 5) break;
+			//	printf("%d\n", x);	
+			//} while (x < 11);
+
+		case 1:
+			printf("insert first number\n");
+			scanf("%d", &ax);
+			printf("insert second number\n");
+			scanf("%d", &ay);
+			sumnum(ax, ay);
+			break;
+		case 2:
+			printf("insert first number\n");
+			scanf("%d", &first);
+			printf("insert second number\n");
+			scanf("%d", &second);
+			sumofNum(first, second);
+			break;
+		default:
+			printf("bye");
+			break;
+		}
+		printf("select 1 to continue\n");
+		printf("select 0 to finish\n");
+		scanf("%d", &status);
+	}
+}
+
+
+
+
+int sumnum(int x, int y) {
+	int total = x + y;	
+	printf("Total is %d\n", total);
+	return total;
+
+}
+
+int sumofNum(int a, int b) {
+	int sum=0;
+	for (int i = a; i <= b; i += 1) {
+		sum = sum + i;
+	}
+	printf("%d", sum);
+	return sum;
+}
+	
