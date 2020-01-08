@@ -1,0 +1,76 @@
+#include <stdio.h>// standard I/O
+#include <stdlib.h>
+#include <string.h>// to use string maniupulation
+#include <stdbool.h>//  to use boolean
+#include <math.h>// to use baseic math such as sqrt, power, floor, ceil
+
+void rainchecker();
+void menu();
+void test();
+
+int main() {
+	rainchecker();
+	menu();
+	test();
+}
+
+void rainchecker() {
+	int input;
+	printf("select menu\n1 - It is rainy\n2 - It is not rainy\n3 - I live in Vancouver\n");
+	scanf("%d", &input);
+	if (input == 1) {
+		printf("Take umbrella");
+	}
+	else if (input == 2) {
+		printf("Don't take umbrella");
+	}
+	else if (input == 3) {
+		printf("Always take umbrella");
+	}
+	else {
+		printf("Please insert a valid option");
+		rainchecker();
+	}
+}
+
+void menu() {
+	
+	int option=0;
+	printf("-----------------------------------------------------------------------\n");
+	printf("select something\n1 - 1\n2 - 2\n3 - 3\n4 - 4\n5 - Reset\nOthers - End\n");
+	printf("-----------------------------------------------------------------------\n");
+	scanf("%d", &option);
+	switch (option) {
+	case 1:
+		printf("you chose option 1!!!\n");
+		menu();
+		break;
+	case 2:
+		printf("you chose option 2!!!\n");
+		menu();
+		break;
+	case 3:
+		printf("you chose option 3!!!\n");
+		menu();
+		break;
+	case 4:
+		printf("you chose option 4!!!\n");
+		menu();
+		break;
+	case 5:
+		menu();
+		break;
+	default:
+		exit(0);
+		break;
+	}
+
+}
+
+void test() {
+	_Bool standardBool = -1;
+	printf("Bool var is %d\n", standardBool);
+	bool librarybool = false;
+	printf("Library Bool var is %d\n", librarybool);
+
+}
