@@ -1,0 +1,74 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+bool reserve();
+bool cancel();
+void menu();
+
+bool fc1[5][4] = { false };	//difine first class seats of 1st floor as bool arrays
+bool fc2[5][4] = { false };	//difine first class seats of 2nd floor as bool arrays
+bool bc[6][6] = { false };	//difine business class seats as bool arrays
+bool ec[24][10] = { false };	//difine economy class seats as bool arrays
+
+int row, no;
+
+void main() {
+
+
+	ec[row][no]=reserve(row,no);
+	printf("%d\n",ec[row][no]);
+	ec[row][no] = reserve(row, no);
+	printf("%d\n", ec[0][0]);
+	ec[row][no] = cancel(row, no);
+	printf("%d\n", ec[0][0]);
+	ec[row][no] = cancel(row, no);
+	printf("%d\n", ec[0][0]);
+	ec[row][no] = reserve(row, no);
+	printf("%d\n", ec[0][0]);
+
+}
+
+bool reserve(int row, int no) {	
+	puts("Select seat row");
+	scanf("%d", &row);
+	puts("Select seat no");
+	scanf("%d", &no);
+	if (ec[row][no] == true) {
+		printf("This seat is already reserved\n");
+		return true;
+	} else if (ec[row][no] == false) {
+		printf("The reservation was completed successfully\n");
+		return true;
+	}
+}
+
+bool cancel(int row, int no) {
+	puts("Select seat row");
+	scanf("%d", &row);
+	puts("Select seat no");
+	scanf("%d", &no);
+	if (ec[row][no] == false) {
+		printf("This seat is not reserved yet\n");
+		return false;
+	}
+	else if (ec[row][no] == true) {
+		printf("The cancellation was completed successfully\n");
+		return false;
+	}
+}
+
+void menu() {
+	int menu = 0;
+	puts("Select a menu from below");
+	puts("1 - Reserve a seat");
+	puts("2 - Cancel a seat");
+	puts("3 - Showing a seat map");
+	scanf("%d", &menu);
+	switch (menu) {
+	case 1:
+		break;
+
+	
+	}
+
+}
