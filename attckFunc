@@ -1,0 +1,26 @@
+//if attack<defense : attack will not hit
+//if dice has 20 : damage will be doubled
+void attackTo(Hero * defender, Hero * attacker) { // need 2 arguments of structs pointer
+	if (defender->HP <= 0)
+	{
+		printf("%s has died already!\n", defender->heroName);
+		return;
+	}
+	if (defender->skill >= attacker->power) {
+		printf("%Miss! %s lost 0 of HP\n", defender->heroName);
+		return;
+	}
+
+	int atkRoll = rollDice(rand()) + 10;
+	if (atkRoll == 30) { //when dice is 20, atkRoll will be 30 : Critical hits
+		atkRoll *= 2;
+		printf("Crits! %s was attacked, and lost %d of HP\n", defender->heroName, atkRoll);
+		defender->HP -= atkRoll;
+	} else {
+		printf("%s was attacked, and lost %d of HP\n", defender->heroName, atkRoll);
+		defender->HP -= atkRoll;
+	} if (defender->HP <= 0)
+	{
+		printf("%s has died!\n", defender->heroName);	
+	}
+}
