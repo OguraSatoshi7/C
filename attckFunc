@@ -1,3 +1,8 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "dice.h"
+
 //if attack<defense : attack will not hit
 //if dice has 20 : damage will be doubled
 void attackTo(Hero * defender, Hero * attacker) { // need 2 arguments of structs pointer
