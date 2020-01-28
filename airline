@@ -1,74 +1,318 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-bool reserve();
-bool cancel();
+bool bfc1[5][4] = { false };	//difine first class seats of 1st floor of Boeing as bool arrays
+bool bfc2[5][4] = { false };	//difine first class seats of 2nd floor of Boeing as bool arrays
+bool bbc[6][6] = { false };	//difine business class seats of Boeing as bool arrays
+bool bec[34][10] = { false };	//difine economy class seats of Boeing as bool arrays
+
+bool afc[5][4] = { false };	//difine first class seats of Airbus as bool arrays
+bool abc[6][6] = { false };	//difine business class seats of Airbus as bool arrays
+bool aec[24][10] = { false };	//difine economy class seats of Airbus as bool arrays
+
+
+
 void menu();
 
-bool fc1[5][4] = { false };	//difine first class seats of 1st floor as bool arrays
-bool fc2[5][4] = { false };	//difine first class seats of 2nd floor as bool arrays
-bool bc[6][6] = { false };	//difine business class seats as bool arrays
-bool ec[24][10] = { false };	//difine economy class seats as bool arrays
+void reserveAirbus();
+void showAirbusseats();
+void cancelAirbus();
 
-int row, no;
+void showBoeingseats();
+
 
 void main() {
 
-
-	ec[row][no]=reserve(row,no);
-	printf("%d\n",ec[row][no]);
-	ec[row][no] = reserve(row, no);
-	printf("%d\n", ec[0][0]);
-	ec[row][no] = cancel(row, no);
-	printf("%d\n", ec[0][0]);
-	ec[row][no] = cancel(row, no);
-	printf("%d\n", ec[0][0]);
-	ec[row][no] = reserve(row, no);
-	printf("%d\n", ec[0][0]);
-
+	menu();
 }
 
-bool reserve(int row, int no) {	
-	puts("Select seat row");
-	scanf("%d", &row);
-	puts("Select seat no");
-	scanf("%d", &no);
-	if (ec[row][no] == true) {
-		printf("This seat is already reserved\n");
-		return true;
-	} else if (ec[row][no] == false) {
-		printf("The reservation was completed successfully\n");
-		return true;
-	}
-}
-
-bool cancel(int row, int no) {
-	puts("Select seat row");
-	scanf("%d", &row);
-	puts("Select seat no");
-	scanf("%d", &no);
-	if (ec[row][no] == false) {
-		printf("This seat is not reserved yet\n");
-		return false;
-	}
-	else if (ec[row][no] == true) {
-		printf("The cancellation was completed successfully\n");
-		return false;
-	}
-}
 
 void menu() {
-	int menu = 0;
-	puts("Select a menu from below");
+	int selectair = 0;
+	int choice = 0;
+	puts("Please select Aircraft");
+	puts("1 - Boeing 747");
+	puts("2 - Airbus 300A");
+	scanf("%d", &selectair);
+	puts("\nSelect a menu from below");
 	puts("1 - Reserve a seat");
 	puts("2 - Cancel a seat");
 	puts("3 - Showing a seat map");
-	scanf("%d", &menu);
-	switch (menu) {
+	puts("0 - Quit");
+	scanf("%d", &choice);
+	puts("");
+	switch (selectair) {
 	case 1:
+		switch (choice) {
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			showBoeingseats();
+			break;
+		default:
+			exit(0);
+			break;
+		}
+		puts("");
+		menu();
 		break;
-
-	
+	case 2:
+		switch (choice) {
+		case 1:
+			reserveAirbus();
+			break;
+		case 2:
+			cancelAirbus();
+			break;
+		case 3:
+			showAirbusseats();
+			break;
+		default:
+			exit(0);
+			break;
+		}
+		puts("");
+		menu();
+		break;
 	}
 
+	
+}
+
+void reserveAirbus() {
+	int row, col =0;
+	bool* resseat;
+	puts("Select Row");
+	scanf("%d", &row);
+	puts("Select Col");
+	scanf("%d", &col);
+	if (row <= 0 || row > 35) {
+		puts("There is no such a seat");
+		reserveAirbus();		
+	}
+	col -= 1;
+	if (row > 0 && row <= 5) {//reserve first class
+		if (col >= 4) {
+			puts("There is no such a seat");
+			reserveAirbus();
+		}
+		else {
+			row -= 1;
+			resseat = &afc[row][col];
+			if (afc[row][col] == true) {
+				printf("This seat is already reserved\n");
+			}
+			else if (afc[row][col] == false) {
+				*resseat = true;
+				printf("The reservation was completed successfully\n");
+			}
+		}
+
+	} else if (row >= 6 && row <= 11) {//reserve business class
+		if (col >= 6) {
+			puts("There is no such a seat");
+			reserveAirbus();
+		}
+		row -= 6;
+		resseat = &abc[row][col];
+		if (abc[row][col] == true) {
+			printf("This seat is already reserved\n");
+		}
+		else if (abc[row][col] == false) {
+			*resseat = true;
+			printf("The reservation was completed successfully\n");
+		}
+
+	} else if (row >= 12) {//reserve economy class
+		if (col >= 10) {
+			puts("There is no such a seat");
+			reserveAirbus();
+		}
+		row -= 12;
+		resseat = &aec[row][col];
+		if (aec[row][col] == true) {
+			printf("This seat is already reserved\n");
+		}
+		else if (aec[row][col] == false) {
+			*resseat = true;
+			printf("The reservation was completed successfully\n");
+		}
+	}
+}
+
+void cancelAirbus() {
+	int row, col =0;
+	bool* resseat;
+	puts("Select Row");
+	scanf("%d", &row);
+	puts("Select Col");
+	scanf("%d", &col);
+	bool* canseat;
+	if (row <= 0 || row > 35) {
+		puts("There is no such a seat");
+		cancelAirbus();
+	}
+	col -= 1;
+	if (row > 0 && row <= 5) {//cancel first class
+		if (col >= 4) {
+			puts("There is no such a seat");
+			cancelAirbus();
+		}
+		row -= 1;
+		canseat = &afc[row][col];
+		if (afc[row][col] == false) {
+			printf("This seat is not reserved yet\n");
+		}
+		else if (afc[row][col] == true) {
+			*canseat = false;
+			printf("The cancelation was completed successfully\n");
+		}
+
+	}
+	else if (row >= 6 && row <= 11) {//cancel business class
+		if (col >= 6) {
+			puts("There is no such a seat");
+			cancelAirbus();
+		}
+		row -= 6;
+		canseat = &abc[row][col];
+		if (abc[row][col] == false) {
+			printf("This seat is not reserved yet\n");
+		}
+		else if (abc[row][col] == true) {
+			*canseat = false;
+			printf("The cancelation was completed successfully\n");
+		}
+
+	}
+	else if (row >= 12) {//reserve economy class
+		if (col >= 10) {
+			puts("There is no such a seat");
+			cancelAirbus();
+		}
+		row -= 12;
+		canseat = &aec[row][col];
+		if (aec[row][col] == false) {
+			printf("This seat is not reserved yet\n");
+		}
+		else if (aec[row][col] == true) {
+			*canseat = false;
+			printf("The cancelation was completed successfully\n");
+		}
+	}
+}
+
+void showAirbusseats(){
+	puts("Airbus Seats Map below");
+	puts("Status>>  O : Empty  X : Reserved");
+	puts("******************** First Class ********************");
+	printf("\tCol1\tCol2\tCol3\tCol4\n");
+	for (int i = 0; i < 5; i++) {
+		printf("Row %d", i + 1);
+		for (int j = 0; j < 4; j++) {
+			if (afc[i][j] == true) {
+				printf("\tX");
+			}
+			else if (afc[i][j] == false) {
+				printf("\tO");
+			}
+		}
+		printf("\n");
+	}
+	puts("");
+	puts("******************** Business Class ********************");
+	printf("\tCol1\tCol2\tCol3\tCol4\tCol5\tCol6\n");
+	for (int i = 0; i < 6; i++) {
+		printf("Row %d", i + 6);
+		for (int j = 0; j < 6; j++) {
+			if (abc[i][j] == true) {
+				printf("\tX");
+			}
+			else if (abc[i][j] == false) {
+				printf("\tO");
+			}
+		}
+		printf("\n");
+	}
+	puts("");
+	puts("******************** Economy Class ********************");
+	printf("\tCol1\tCol2\tCol3\tCol4\tCol5\tCol6\tCol7\tCol8\tCol9\tCol10\n");
+	for (int i = 0; i < 24; i++) {
+		printf("Row %d", i + 12);
+		for (int j = 0; j < 10; j++) {
+			if (aec[i][j] == true) {
+				printf("\tX");
+			}
+			else if (aec[i][j] == false) {
+				printf("\tO");
+			}
+		}
+		printf("\n");
+	}
+}
+
+void showBoeingseats() {
+	puts("Boeing Seats Map below");
+	puts("Status>>  O : Empty  X : Reserved");
+	puts("******************** First Class 2nd floor ********************");
+	printf("\tCol1\tCol2\tCol3\tCol4\n");
+	for (int i = 0; i < 5; i++) {
+		printf("Row2.%d", i + 1);
+		for (int j = 0; j < 4; j++) {
+			if (bfc2[i][j] == true) {
+				printf("\tX");
+			}
+			else if (bfc2[i][j] == false) {
+				printf("\tO");
+			}
+		}
+		printf("\n");
+	}
+	puts("");
+	puts("******************** First Class 1st floor ********************");
+	printf("\tCol1\tCol2\tCol3\tCol4\n");
+	for (int i = 0; i < 5; i++) {
+		printf("Row%d", i + 1);
+		for (int j = 0; j < 4; j++) {
+			if (bfc1[i][j] == true) {
+				printf("\tX");
+			}
+			else if (bfc1[i][j] == false) {
+				printf("\tO");
+			}
+		}
+		printf("\n");
+	}
+	puts("");
+	puts("******************** Business Class ********************");
+	printf("\tCol1\tCol2\tCol3\tCol4\tCol5\tCol6\n");
+	for (int i = 0; i < 6; i++) {
+		printf("Row%d", i + 6);
+		for (int j = 0; j < 6; j++) {
+			if (bbc[i][j] == true) {
+				printf("\tX");
+			}
+			else if (bbc[i][j] == false) {
+				printf("\tO");
+			}
+		}
+		printf("\n");
+	}
+	puts("");
+	puts("******************** Economy Class ********************");
+	printf("\tCol1\tCol2\tCol3\tCol4\tCol5\tCol6\tCol7\tCol8\tCol9\tCol10\n");
+	for (int i = 0; i < 34; i++) {
+		printf("Row%d", i + 12);
+		for (int j = 0; j < 10; j++) {
+			if (bec[i][j] == true) {
+				printf("\tX");
+			}
+			else if (bec[i][j] == false) {
+				printf("\tO");
+			}
+		}
+		printf("\n");
+	}
 }
