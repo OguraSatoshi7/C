@@ -10,22 +10,17 @@ bool afc[5][4] = { false };	//difine first class seats of Airbus as bool arrays
 bool abc[6][6] = { false };	//difine business class seats of Airbus as bool arrays
 bool aec[24][10] = { false };	//difine economy class seats of Airbus as bool arrays
 
-
-
 void menu();
-
 void reserveAirbus();
-void showAirbusseats();
 void cancelAirbus();
-
+void showAirbusseats();
+void reserveBoeing();
+void cancelBoeing();
 void showBoeingseats();
 
-
 void main() {
-
 	menu();
 }
-
 
 void menu() {
 	int selectair = 0;
@@ -45,8 +40,10 @@ void menu() {
 	case 1:
 		switch (choice) {
 		case 1:
+			reserveBoeing();
 			break;
 		case 2:
+			cancelBoeing();
 			break;
 		case 3:
 			showBoeingseats();
@@ -90,13 +87,15 @@ void reserveAirbus() {
 	scanf("%d", &col);
 	if (row <= 0 || row > 35) {
 		puts("There is no such a seat");
-		reserveAirbus();		
+		puts("");
+		menu();
 	}
 	col -= 1;
 	if (row > 0 && row <= 5) {//reserve first class
-		if (col >= 4) {
+		if (col<0||col >= 4) {
 			puts("There is no such a seat");
-			reserveAirbus();
+			puts("");
+			menu();
 		}
 		else {
 			row -= 1;
@@ -111,9 +110,10 @@ void reserveAirbus() {
 		}
 
 	} else if (row >= 6 && row <= 11) {//reserve business class
-		if (col >= 6) {
+		if (col < 0 || col >= 6) {
 			puts("There is no such a seat");
-			reserveAirbus();
+			puts("");
+			menu();
 		}
 		row -= 6;
 		resseat = &abc[row][col];
@@ -126,9 +126,10 @@ void reserveAirbus() {
 		}
 
 	} else if (row >= 12) {//reserve economy class
-		if (col >= 10) {
+		if (col < 0 || col >= 10) {
 			puts("There is no such a seat");
-			reserveAirbus();
+			puts("");
+			menu();
 		}
 		row -= 12;
 		resseat = &aec[row][col];
@@ -152,13 +153,15 @@ void cancelAirbus() {
 	bool* canseat;
 	if (row <= 0 || row > 35) {
 		puts("There is no such a seat");
-		cancelAirbus();
+		puts("");
+		menu();
 	}
 	col -= 1;
 	if (row > 0 && row <= 5) {//cancel first class
-		if (col >= 4) {
+		if (col < 0 || col >= 4) {
 			puts("There is no such a seat");
-			cancelAirbus();
+			puts("");
+			menu();
 		}
 		row -= 1;
 		canseat = &afc[row][col];
@@ -172,9 +175,10 @@ void cancelAirbus() {
 
 	}
 	else if (row >= 6 && row <= 11) {//cancel business class
-		if (col >= 6) {
+		if (col < 0 || col >= 6) {
 			puts("There is no such a seat");
-			cancelAirbus();
+			puts("");
+			menu();
 		}
 		row -= 6;
 		canseat = &abc[row][col];
@@ -187,10 +191,11 @@ void cancelAirbus() {
 		}
 
 	}
-	else if (row >= 12) {//reserve economy class
-		if (col >= 10) {
+	else if (row >= 12) {//cancel economy class
+		if (col < 0 || col >= 10) {
 			puts("There is no such a seat");
-			cancelAirbus();
+			puts("");
+			menu();
 		}
 		row -= 12;
 		canseat = &aec[row][col];
@@ -259,7 +264,7 @@ void showBoeingseats() {
 	puts("******************** First Class 2nd floor ********************");
 	printf("\tCol1\tCol2\tCol3\tCol4\n");
 	for (int i = 0; i < 5; i++) {
-		printf("Row2.%d", i + 1);
+		printf("Row10%d", i + 1);
 		for (int j = 0; j < 4; j++) {
 			if (bfc2[i][j] == true) {
 				printf("\tX");
@@ -314,5 +319,171 @@ void showBoeingseats() {
 			}
 		}
 		printf("\n");
+	}
+}
+
+void reserveBoeing() {
+	int row, col = 0;
+	bool* resseat;
+	puts("Select Row");
+	scanf("%d", &row);
+	puts("Select Col");
+	scanf("%d", &col);	
+	col -= 1;
+	if (row > 0 && row <= 5) {//reserve first class of 1st floor
+		if (col < 0 || col >= 4) {
+			puts("There is no such a seat");
+			puts("");
+			menu();
+		}
+		else {
+			row -= 1;
+			resseat = &bfc1[row][col];
+			if (bfc1[row][col] == true) {
+				printf("This seat is already reserved\n");
+			}
+			else if (bfc1[row][col] == false) {
+				*resseat = true;
+				printf("The reservation was completed successfully\n");
+			}
+		}
+
+	}
+	else if (row >= 6 && row <= 11) {//reserve business class
+		if (col < 0 || col >= 6) {
+			puts("There is no such a seat");
+			puts("");
+			menu();
+		}
+		row -= 6;
+		resseat = &bbc[row][col];
+		if (bbc[row][col] == true) {
+			printf("This seat is already reserved\n");
+		}
+		else if (bbc[row][col] == false) {
+			*resseat = true;
+			printf("The reservation was completed successfully\n");
+		}
+
+	}
+	else if (row >= 12 && row<=45) {//reserve economy class
+		if (col < 0 || col >= 10) {
+			puts("There is no such a seat");
+			puts("");
+			menu();
+		}
+		row -= 12;
+		resseat = &bec[row][col];
+		if (bec[row][col] == true) {
+			printf("This seat is already reserved\n");
+		}
+		else if (aec[row][col] == false) {
+			*resseat = true;
+			printf("The reservation was completed successfully\n");
+		}
+	}
+	else if (row >= 101 && row <= 105) {//reserve first class of 2nd floor
+		if (col < 0 || col >= 4) {
+			puts("There is no such a seat");
+			puts("");
+			menu();
+		}
+		else {
+			row -= 101;
+			resseat = &bfc2[row][col];
+			if (bfc2[row][col] == true) {
+				printf("This seat is already reserved\n");
+			}
+			else if (bfc2[row][col] == false) {
+				*resseat = true;
+				printf("The reservation was completed successfully\n");
+			}
+		}
+	
+	}
+	else {
+		puts("There is no such a seat");
+		puts("");
+		menu();
+	}
+}
+
+void cancelBoeing() {
+	int row, col = 0;
+	puts("Select Row");
+	scanf("%d", &row);
+	puts("Select Col");
+	scanf("%d", &col);
+	bool* canseat;
+	col -= 1;
+	if (row > 0 && row <= 5) {//cancel first class of 1st floor
+		if (col < 0 || col >= 4) {
+			puts("There is no such a seat");
+			puts("");
+			menu();
+		}
+		row -= 1;
+		canseat = &bfc1[row][col];
+		if (bfc1[row][col] == false) {
+			printf("This seat is not reserved yet\n");
+		}
+		else if (bfc1[row][col] == true) {
+			*canseat = false;
+			printf("The cancelation was completed successfully\n");
+		}
+	}
+	else if (row >= 6 && row <= 11) {//cancel business class
+		if (col < 0 || col >= 6) {
+			puts("There is no such a seat");
+			puts("");
+			menu();
+		}
+		row -= 6;
+		canseat = &bbc[row][col];
+		if (bbc[row][col] == false) {
+			printf("This seat is not reserved yet\n");
+		}
+		else if (bbc[row][col] == true) {
+			*canseat = false;
+			printf("The cancelation was completed successfully\n");
+		}
+
+	}
+	else if (row >= 12 && row <= 45) {//cancel economy class
+		if (col < 0 || col >= 10) {
+			puts("There is no such a seat");
+			puts("");
+			menu();
+		}
+		row -= 12;
+		canseat = &bec[row][col];
+		if (bec[row][col] == false) {
+			printf("This seat is not reserved yet\n");
+		}
+		else if (bec[row][col] == true) {
+			*canseat = false;
+			printf("The cancelation was completed successfully\n");
+		}
+	}
+	else if (row >= 101 && row <= 105) {//cancel first class of 2nd floor
+		if (col < 0 || col >= 4) {
+			puts("There is no such a seat");
+			puts("");
+			menu();
+		}
+		row -= 101;
+		canseat = &bfc2[row][col];
+		if (bfc2[row][col] == false) {
+			printf("This seat is not reserved yet\n");
+		}
+		else if (bfc2[row][col] == true) {
+			*canseat = false;
+			printf("The cancelation was completed successfully\n");
+		}
+	}
+	else {
+		puts("There is no such a seat");
+		puts("");
+		menu();
 	}
 }
