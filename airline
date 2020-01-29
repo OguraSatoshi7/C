@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-bool bfc1[5][4] = { false };	//difine first class seats of 1st floor of Boeing as bool arrays
-bool bfc2[5][4] = { false };	//difine first class seats of 2nd floor of Boeing as bool arrays
-bool bbc[6][6] = { false };	//difine business class seats of Boeing as bool arrays
+bool bfc1[5][4] = { false };	//define first class seats of 1st floor of Boeing as bool arrays
+bool bfc2[5][4] = { false };	//define first class seats of 2nd floor of Boeing as bool arrays
+bool bbc[6][6] = { false };	//define business class seats of Boeing as bool arrays
 bool bec[34][10] = { false };	//difine economy class seats of Boeing as bool arrays
 
-bool afc[5][4] = { false };	//difine first class seats of Airbus as bool arrays
-bool abc[6][6] = { false };	//difine business class seats of Airbus as bool arrays
-bool aec[24][10] = { false };	//difine economy class seats of Airbus as bool arrays
+bool afc[5][4] = { false };	//define first class seats of Airbus as bool arrays
+bool abc[6][6] = { false };	//define business class seats of Airbus as bool arrays
+bool aec[24][10] = { false };	//define economy class seats of Airbus as bool arrays
 
 void menu();
 void reserveAirbus();
