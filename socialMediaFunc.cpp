@@ -9,6 +9,7 @@ extern void printProfile(vector<Profile*> &ProfilesVector);
 extern void editProfile(vector<Profile*> &ProfilesVector);
 extern void deleteProfile(vector<Profile*> &ProfilesVector);
 extern void sendMessage(vector<Profile*> &ProfilesVector);
+extern void printImage(int imageno);
 
 void menu(vector<Profile*> &ProfilesVector) {	
 	int menuchoice{};
@@ -47,8 +48,8 @@ void menu(vector<Profile*> &ProfilesVector) {
 }
 
 void createProfile(vector<Profile*> &ProfilesVector) {
-	string nameinput{}, nationalityinput{}, programinput{}, cityinput{}, fPLinput{}, bIOinput{}, imageinput{};
-	int ageinput{};
+	string nameinput{}, nationalityinput{}, programinput{}, cityinput{}, fPLinput{}, bIOinput{};
+	int ageinput{}, imageinput{};
 
 	cout << "Input the name of new profile" << endl;
 	cin >> nameinput;
@@ -72,7 +73,13 @@ void createProfile(vector<Profile*> &ProfilesVector) {
 	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	getline(cin,bIOinput);
 
-	cout << "Input the image of new profile" << endl;
+	cout << "No. 1" << endl;
+	printImage(1);
+	cout << endl;
+	cout << "No. 2" << endl;
+	printImage(2);
+	cout << endl;
+	cout << "Choose No. from above for your profile Image" << endl;
 	cin >> imageinput;
 
 	Profile* Newprofile = new Profile(nameinput, ageinput, nationalityinput, programinput, cityinput, fPLinput, bIOinput, imageinput);
@@ -90,7 +97,8 @@ void printProfile(vector<Profile*> &ProfilesVector) {
 		cout << "City : " << ProfilesVector.at(i)->getCity() << endl;
 		cout << "Favorite Programing Language : " << ProfilesVector.at(i)->getFPL() << endl;
 		cout << "BIO : " << ProfilesVector.at(i)->getBIO() << endl;
-		cout << "Image : " << ProfilesVector.at(i)->getImage() << endl;
+		cout << "Image : " <<endl;
+		printImage(ProfilesVector.at(i)->getImage());
 		cout << "Testimonial : " << ProfilesVector.at(i)->getTestimonial() << endl;
 		cout << endl;
 	}
@@ -101,8 +109,8 @@ void editProfile(vector<Profile*> &ProfilesVector) {
 	cout << "Input the Profile Index you want to edit" << endl;
 	cin >> noinput;
 
-	string nameinput{}, nationalityinput{}, programinput{}, cityinput{}, fPLinput{}, bIOinput{}, imageinput{}, testimonialinput{};
-	int ageinput{};
+	string nameinput{}, nationalityinput{}, programinput{}, cityinput{}, fPLinput{}, bIOinput{}, testimonialinput{};
+	int ageinput{}, imageinput{};
 
 	cout << "Input the new name" << endl;
 	cin >> nameinput;
@@ -133,7 +141,13 @@ void editProfile(vector<Profile*> &ProfilesVector) {
 	getline(cin, bIOinput);
 	ProfilesVector.at(noinput)->setBIO(bIOinput);
 
-	cout << "Input the new image" << endl;
+	cout << "No. 1" << endl;
+	printImage(1);
+	cout << endl;
+	cout << "No. 2" << endl;
+	printImage(2);
+	cout << endl;
+	cout << "Choose new No. of your image from above" << endl;
 	cin >> imageinput;
 	ProfilesVector.at(noinput)->setImage(imageinput);
 
@@ -148,7 +162,6 @@ void deleteProfile(vector<Profile*> &ProfilesVector) {
 }
 
 void sendMessage(vector<Profile*> &ProfilesVector) {
-	int indexchecker{};
 	string sender{}, receiver{}, message{};
 	cout << "Input your name" << endl;
 	cin >> sender;
@@ -165,4 +178,49 @@ void sendMessage(vector<Profile*> &ProfilesVector) {
 		}
 	}
 	cout<<receiver+" does not exist\n" <<endl;
+}
+
+void printImage(int imageno) {
+	switch (imageno)
+	{
+	case 1:
+		cout <<"      ////^\\\\\\\\"<<endl;
+		cout <<"      | ^   ^ |" << endl;
+		cout << "     @ (o) (o) @" << endl;
+		cout << "      |   <   |" << endl;
+		cout << "      |  ___  |" << endl;
+		cout << "       \\_____/" << endl;
+		cout << "     ____|  |____" << endl;
+		cout << "    /    \\__/    \\" << endl;
+		cout << "   /              \\"<<endl;
+		cout << "  /\\_/|        |\\_/\\" << endl;
+		cout << " / /  |        |  \\ \\" << endl;
+		cout << "( <   |        |   > )" << endl;
+		cout << " \\ \\  |        |  / /" << endl;
+		cout << "  \\ \\ |________| / /\n" << endl;
+		break;
+
+	case 2:
+		cout << " /////////////\\\\\\\\" << endl;
+		cout << "(((((((((((((( \\\\\\\\" << endl;
+		cout << "))) ~~      ~~  (((" << endl;
+		cout << "((( (*)     (*) )))" << endl;
+		cout << ")))     <       (((" << endl;
+		cout << "((( '\\______/`  )))" << endl;
+		cout << ")))\\___________/(((" << endl;
+		cout << "       _) (_" << endl;
+		cout << "      / \\_/ \\" << endl;
+		cout << "     /(     )\\" << endl;
+		cout << "    // )___( \\\\" << endl;
+		cout << "    \\\\(     )//" << endl;
+		cout << "     (       )" << endl;
+		cout << "      |  |  |" << endl;
+		cout << "       | | |" << endl;
+		cout << "       | | |" << endl;
+		cout << "      _|_|_|_\n" << endl;
+		break;	
+	default:
+		cout << "No Image\n" << endl;
+		break;
+	}
 }
